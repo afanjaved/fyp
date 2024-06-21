@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 mongoose
-  .connect("mongodb://localhost:27017/FYP_Afhan")
+  .connect("mongodb://localhost:27017/FYP")
   .then(() => console.log("connected to database"))
   .catch((err) => console.log(err));
 app.use("/api/user", userRoutes);

@@ -7,6 +7,7 @@ import { sendEmail } from "../configuration/Nodemailer.js";
 import crypto from "crypto";
 
 export const Signup = async (req, res) => {
+  console.log(req.body)
   const { email, password, role, name, phone } = req.body;
 
   if (!email || !password) {
