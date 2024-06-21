@@ -5,11 +5,13 @@ import userRoutes from "./routes/user.routes.js";
 import providerRoutes from "./routes/provider.routes.js";
 import foodRoutes from "./routes/Food.routes.js";
 import OrderRoutes from "./routes/Order.routes.js";
+
+const uri = "mongodb+srv://aafhanjaved:4LsJO7drLqQbzHBn@fyp.zp6y3wm.mongodb.net/fyp?retryWrites=true&w=majority&appName=fyp";
 const app = express();
 app.use(express.json());
 app.use(cors());
 mongoose
-  .connect("mongodb://localhost:27017/FYP")
+  .connect(uri)         //mongodb://localhost:27017/FYP  password//4LsJO7drLqQbzHBn name//aafhanjaved
   .then(() => console.log("connected to database"))
   .catch((err) => console.log(err));
 app.use("/api/user", userRoutes);
