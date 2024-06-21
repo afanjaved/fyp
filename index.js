@@ -18,6 +18,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/provider", providerRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/order", OrderRoutes);
-app.listen(5000, () => {
-  console.log("Server started on port 5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
