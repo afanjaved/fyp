@@ -11,7 +11,14 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 mongoose
-  .connect(uri)         //mongodb://localhost:27017/FYP  password//4LsJO7drLqQbzHBn name//aafhanjaved
+  .connect(uri,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
+    socketTimeoutMS: 45000, // Increase socket timeout to 45 seconds
+  }
+    
+  )         //mongodb://localhost:27017/FYP  password//4LsJO7drLqQbzHBn name//aafhanjaved
   .then(() => console.log("connected to database"))
   .catch((err) => console.log(err));
 app.use("/api/user", userRoutes);
