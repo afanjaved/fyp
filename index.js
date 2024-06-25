@@ -16,6 +16,7 @@ mongoose
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
     socketTimeoutMS: 45000, // Increase socket timeout to 45 seconds
+    poolSize: 20, // Increase connection pool size
   }
     
   )         //mongodb://localhost:27017/FYP  password//4LsJO7drLqQbzHBn name//aafhanjaved
