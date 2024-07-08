@@ -42,7 +42,7 @@ export const geteaterOrders = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    const orders = await OrderModel.find({ user: user._id, status: "Pending" });
+    const orders = await OrderModel.find({ user: user._id});
     res.status(200).json(orders);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong" });
