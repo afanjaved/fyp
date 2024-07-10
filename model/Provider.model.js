@@ -18,6 +18,17 @@ const Provider = new Schema({
     type: String,
     default: "provider",
   },
+  ratings: [
+    {
+      rate: { type: Number, min: 1, max: 5 }
+    }
+  ],
+  averageRating: {
+    type: Number,
+    min: 1,
+    max: 5,
+    default: 0
+  },
   brand: { type: String },
   address: { type: String },
   phone: { type: String },
@@ -28,4 +39,5 @@ const Provider = new Schema({
   isVerified: { type: Boolean, default: false },
   verificationCode: { type: String },
 });
+
 export default mongoose.model("Provider", Provider);
