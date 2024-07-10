@@ -10,7 +10,6 @@ const Food = new Schema({
     type: Number,
     required: true,
   },
-
   avlabilityTime: {
     type: String,
     required: true,
@@ -18,13 +17,22 @@ const Food = new Schema({
   phone: {
     type: String,
   },
-  rating: {
+  averageRating: {
     type: Number,
-    default: 3.6,
-  },
+    default: 0,
+    },
+  ratings: [
+    {
+      rate: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
   userRef: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "providers",
   },
 });
+
 export default mongoose.model("Food", Food);
