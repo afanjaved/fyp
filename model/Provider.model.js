@@ -27,7 +27,7 @@ const Provider = new Schema({
     type: Number,
     min: 1,
     max: 5,
-    default: 0
+    default: 1
   },
   brand: { type: String },
   address: { type: String },
