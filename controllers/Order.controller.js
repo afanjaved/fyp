@@ -50,6 +50,7 @@ export const geteaterOrders = async (req, res) => {
 };
 export const getProviderOrders = async (req, res) => {
   const { email } = req.body;
+  console.log("hi");
   try {
     const user = await Provider.findOne({ email });
     if (!user) {
@@ -58,6 +59,21 @@ export const getProviderOrders = async (req, res) => {
     const orders = await OrderModel.find({
       provider: user._id,
       status: "Pending",
+    });
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+export const getProviderOrdersHistory = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await Provider.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const orders = await OrderModel.find({
+      provider: user._id,
     });
     res.status(200).json(orders);
   } catch (error) {
@@ -84,4 +100,4 @@ export const updateOrder = async (req, res) => {
       .json({ message: "Failed to update order status", error: error.message });
   }
 };
-export default { createOrder, geteaterOrders, updateOrder, getProviderOrders };
+export default { createOrder, geteaterOrders, updateOrder, getProviderOrders, getProviderOrdersHistory };

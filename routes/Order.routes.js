@@ -4,5 +4,6 @@ import OrderController from "../controllers/Order.controller.js";
 router.post("/createorder", OrderController.createOrder);
 router.post("/geteaterorder", OrderController.geteaterOrders);
 router.post("/getproviderorder", OrderController.getProviderOrders);
+router.post("/getproviderorderHistory", OrderController.getProviderOrdersHistory);
 router.post("/updateorder", OrderController.updateOrder);
 export default router;
