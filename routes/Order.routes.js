@@ -5,5 +5,6 @@ router.post("/createorder", OrderController.createOrder);
 router.post("/geteaterorder", OrderController.geteaterOrders);
 router.post("/getproviderorder", OrderController.getProviderOrders);
 router.post("/getproviderorderHistory", OrderController.getProviderOrdersHistory);
+router.post("/getproviderorderSummary", OrderController.getProviderOrdersSummary);
 router.post("/updateorder", OrderController.updateOrder);
 export default router;
