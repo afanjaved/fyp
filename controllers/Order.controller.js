@@ -154,5 +154,59 @@ export const getProviderOrdersSummary = async (req, res) => {
   }
 };
 
+export const getEaterOrdersSummary = async (req, res) => {
+  try {
+    const { email } = req.body;
 
-export default { createOrder, geteaterOrders, updateOrder, getProviderOrders, getProviderOrdersHistory,getProviderOrdersSummary };
+    // Find the eater by email
+    const eater = await EaterModel.findOne({ email });
+    if (!eater) {
+      return res.status(404).json({ message: "Eater not found" });
+    }
+
+    // Aggregate orders for the eater and include provider's name
+    const ordersSummary = await OrderModel.aggregate([
+      { $match: { user: new mongoose.Types.ObjectId(eater._id) } },
+      {
+        $lookup: {
+          from: "providers", // The collection name for Provider
+          localField: "provider",
+          foreignField: "_id",
+          as: "providerDetails"
+        }
+      },
+      {
+        $unwind: "$providerDetails" // Unwind to deconstruct the array
+      },
+      {
+        $group: {
+          _id: "$title", // Group by order title (dish)
+          totalQuantity: { $sum: "$quantity" },
+          totalAmount: { $sum: "$totalAmount" },
+          orderCount: { $sum: 1 }, // Count number of orders
+          provider: { $first: "$providerDetails.name" } // Get the provider name
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          title: "$_id",
+          totalQuantity: 1,
+          totalAmount: 1,
+          orderCount: 1,
+          provider: 1 // Include the provider name in the output
+        }
+      }
+    ]);
+
+    res.status(200).json(ordersSummary);
+  } catch (error) {
+    console.error("Error fetching eater orders summary:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+
+
+
+export default { createOrder, geteaterOrders, updateOrder, getProviderOrders, getProviderOrdersHistory,getProviderOrdersSummary, getEaterOrdersSummary };
